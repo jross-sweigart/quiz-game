@@ -2,6 +2,10 @@
 
 import csv
 import argparse
+import threading
+import time
+import random
+import sys
 
 def load_quiz(filename):
     questions = []
@@ -12,9 +16,17 @@ def load_quiz(filename):
                 questions.append((row[0].strip(), row[1].strip()))
     return questions
 
-def run_quiz(questions):
+def run_quiz(questions, time_limit):
     correct_count = 0
     total_count = len(questions)
+    
+    def timer():
+        time.sleep(time_limit)
+        print("\nTime's up!")
+        print(f"You got {correct_count} out of {total_count} questions correct.")
+        sys.exit()
+        
+    threading.Thread(target=timer).start()
     
     for question, answer in questions:
         user_answer = input(f"Question: {question} = ? ")
@@ -31,8 +43,13 @@ def run_quiz(questions):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Quiz Application')
     parser.add_argument('--file', type=str, default='../../problems.csv', help='CSV files with quiz questions')
-    
+    parser.add_argument('--time', type=int, default=15, help='Time limit in seconds')
+    parser.add_argument('--shuffle', action='store_true', help='Shuffle quiz questions')
     args = parser.parse_args()
     
     questions = load_quiz(args.file)
-    run_quiz(questions)
+    if args.shuffle:
+        random.shuffle(questions)
+    
+    input('Press Enter to start the quiz...')
+    run_quiz(questions, args.time)
