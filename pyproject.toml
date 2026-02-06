@@ -1,0 +1,24 @@
+[project]
+name = "quiz-game"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "jross-sweigart", email = "sweigshow@tutamail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "icecream>=2.1.10",
+    "pytest>=9.0.2",
+    "pytest-cache>=1.0",
+    "pytest-pylint>=0.21.0",
+    "pytest-subtests>=0.15.0",
+    "rich>=14.3.2",
+]
+
+[project.scripts]
+quiz-game = "quiz_game:main"
+
+[build-system]
+requires = ["uv_build>=0.9.21,<0.10.0"]
+build-backend = "uv_build"
