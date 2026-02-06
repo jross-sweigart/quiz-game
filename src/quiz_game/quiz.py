@@ -30,7 +30,7 @@ def run_quiz(questions):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Quiz Application')
-    parser.add_argument('--file', type=str, default='problems.csv', help='CSV files with quiz questions')
+    parser.add_argument('--file', type=str, default='../../problems.csv', help='CSV files with quiz questions')
     
     args = parser.parse_args()
     
